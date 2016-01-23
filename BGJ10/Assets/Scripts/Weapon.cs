@@ -17,6 +17,11 @@ public class Weapon : MonoBehaviour {
 
     //Weapon Variables
     Colortype type;
+    public GameObject shooter;
+
+    //Weapon projectile
+    public GameObject smokePuff;
+    public GameObject grenade;
 
     void Start()
     {
@@ -55,6 +60,13 @@ public class Weapon : MonoBehaviour {
         float deltaX = p2.x - p1.x;
         return Mathf.Atan2(deltaY, deltaX) * 180 / Mathf.PI + 180;
     }
+
+    //weapon timers
+    float grenadeTimer = 1.5f;
+
+    ///<summary>
+    /// Method ReadyWeapon checks for input and fired according to the color of the weapon
+    ///</summary>
     void ReadyWeapon()
     {
         if (Input.GetButton("Fire1"))
@@ -62,27 +74,34 @@ public class Weapon : MonoBehaviour {
             switch (type)
             {
                 case Colortype.Blue:
-                    //idk what blue do
+                    //laser gun
                     Debug.Log("Shoot blue");
                     break;
                 case Colortype.Green:
-                    //idk what green do
-                    Debug.Log("Shoot green");
+                    //grenade launcher
+                    if (grenadeTimer <= 0)
+                    {
+                        GameObject projectile2 = Instantiate(grenade, shooter.transform.position, transform.rotation) as GameObject;
+                        projectile2.GetComponent<Rigidbody2D>().AddForce(transform.right * 300);
+                        grenadeTimer = 1.5f;
+                    }
                     break;
                 case Colortype.Pink:
-                    //idk what pink do
+                    //pew pew
                     Debug.Log("Shoot pink");
                     break;
                 case Colortype.Yellow:
-                    //idk what yellow do
+                    //flame thrower
                     Debug.Log("Shoot yellow");
                     break;
                 case Colortype.White:
-                    //Not working, just puffs out smoke
-                    Debug.Log("Shoot white");
+                    GameObject projectile5 = Instantiate(smokePuff, shooter.transform.position, transform.rotation) as GameObject;
+                    projectile5.transform.parent = this.transform;
                     break;
                 default: Debug.Log("Gun is broken"); break;
             }
         }
+        //Weapon timers
+        grenadeTimer -= Time.deltaTime;
     }
 }

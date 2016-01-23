@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
     private GameObject player;
     private float attackTimer = 0;
     public Colortype type;
+    public float hp = 10;
 
     //Colors
     public AnimatorController blue;
@@ -41,10 +42,21 @@ public class Enemy : MonoBehaviour {
 
         if (Vector2.Distance(this.transform.position, player.transform.position) <= 1.5f)
             Attack(player.GetComponent<Player>());
+
+        if (hp <= 0)
+            this.Die();
 	}
     void FixedUpdate()
     {
         this.FollowPath(path);
+    }
+
+    ///<summary>
+    /// Method Die causes the enemy object to remvoe itself and apply its death changes
+    ///</summary>
+    public void Die()
+    {
+        Destroy(this.gameObject);
     }
 
     ///<summary>
