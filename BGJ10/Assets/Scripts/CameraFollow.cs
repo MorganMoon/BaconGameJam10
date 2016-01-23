@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour {
 	public float fSpeed;
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		Vector3 vLoc = transform.position;
 		vLoc = Vector2.Lerp(vLoc, tFocus.position, fSpeed*Time.deltaTime);

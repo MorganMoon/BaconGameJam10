@@ -52,4 +52,29 @@ public class Weapon : MonoBehaviour {
         float deltaX = p2.x - p1.x;
         return Mathf.Atan2(deltaY, deltaX) * 180 / Mathf.PI + 180;
     }
+    void ReadyWeapon()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            switch (type)
+            {
+                case Colortype.Blue:
+
+                    break;
+                case Colortype.Green:
+
+                    break;
+                case Colortype.Pink:
+
+                    break;
+                case Colortype.Yellow:
+
+                    break;
+                case Colortype.White:
+
+                    break;
+                default: Debug.Log("Gun is broken"); break;
+            }
+        }
+    }
 }
