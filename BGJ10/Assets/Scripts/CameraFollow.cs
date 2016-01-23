@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
 
 		Vector3 vLoc = transform.position;
-		vLoc = Vector3.Lerp(vLoc, tFocus.position, fSpeed*Time.deltaTime);
+		vLoc = Vector2.Lerp(vLoc, tFocus.position, fSpeed*Time.deltaTime);
 		vLoc.z = -10;
 		transform.position = vLoc;
 	
