@@ -22,7 +22,10 @@ public class Weapon : MonoBehaviour {
     {
         type = Colortype.White;
     }
-
+    void Update()
+    {
+        ReadyWeapon();
+    }
     void FixedUpdate()
     {
         this.Aim();
@@ -59,19 +62,24 @@ public class Weapon : MonoBehaviour {
             switch (type)
             {
                 case Colortype.Blue:
-
+                    //idk what blue do
+                    Debug.Log("Shoot blue");
                     break;
                 case Colortype.Green:
-
+                    //idk what green do
+                    Debug.Log("Shoot green");
                     break;
                 case Colortype.Pink:
-
+                    //idk what pink do
+                    Debug.Log("Shoot pink");
                     break;
                 case Colortype.Yellow:
-
+                    //idk what yellow do
+                    Debug.Log("Shoot yellow");
                     break;
                 case Colortype.White:
-
+                    //Not working, just puffs out smoke
+                    Debug.Log("Shoot white");
                     break;
                 default: Debug.Log("Gun is broken"); break;
             }

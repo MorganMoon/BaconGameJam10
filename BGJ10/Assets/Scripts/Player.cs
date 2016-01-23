@@ -9,7 +9,6 @@ public class Player : MonoBehaviour {
     private float curSpeed = 0;
     private float maxSpeed = 10;
     private bool grounded;
-    private bool jumping = false;
     private bool canDoubleJump;
     Vector2 mousePos = Vector2.zero;
 
@@ -24,11 +23,28 @@ public class Player : MonoBehaviour {
     void Update()
     {
         this.LookAtMouse();
+        if (hp <= 0)
+        {
+            Die();
+        }
     }
 	
 	void FixedUpdate () {
         this.GiveControl();
 	}
+
+    ///<summary>
+    /// Method Die removes the object and does game over stuff
+    ///</summary>
+    void Die()
+    {
+        Destroy(this.gameObject);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+    }
 
     ///<summary>
     /// Method GiveControl gives the player control over object
@@ -54,22 +70,20 @@ public class Player : MonoBehaviour {
             curSpeed = maxSpeed;
 
         //Jumpy jump junk
-        Debug.DrawLine(new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x, transform.position.y - 0.6f), Color.red);
-        grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.6f, floorLayer);
+        Debug.DrawLine(new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x, transform.position.y - 0.7f), Color.red);
+        grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.7f, floorLayer);
 
         if (grounded && Input.GetButtonDown("Jump"))
         {
             canDoubleJump = true;
             //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
-            Debug.Log("Jump");
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 5f);
         }
         else if (!grounded && canDoubleJump == true && Input.GetButtonDown("Jump"))
         {
             canDoubleJump = false;
-            //GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y / 2);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y / 2);
             //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
-            Debug.Log("DubJump");
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 8f);
         }
     }

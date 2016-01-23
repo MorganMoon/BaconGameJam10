@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor.Animations;
 
 public class Enemy : MonoBehaviour {
     
@@ -15,6 +16,14 @@ public class Enemy : MonoBehaviour {
 
     //Enemy control variables
     private GameObject player;
+    private float attackTimer = 0;
+    public Colortype type;
+
+    //Colors
+    public AnimatorController blue;
+    public AnimatorController green;
+    public AnimatorController pink;
+    public AnimatorController yellow;
 
     void Awake()
     {
@@ -24,13 +33,46 @@ public class Enemy : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player");
         pathfinding.heuristic = (Heuristics)Random.Range(0, 3);
+        SetEnemyColor(type);
     }
 	void Update () {
         FindPath();
+        attackTimer -= Time.deltaTime;
+
+        if (Vector2.Distance(this.transform.position, player.transform.position) <= 1.5f)
+            Attack(player.GetComponent<Player>());
 	}
     void FixedUpdate()
     {
         this.FollowPath(path);
+    }
+
+    ///<summary>
+    /// Method Attack causes object to run an attack which can damage Player player
+    ///</summary>
+    void SetEnemyColor(Colortype type)
+    {
+        
+        switch (type)
+        {
+            case Colortype.Blue: gameObject.GetComponent<Animator>().runtimeAnimatorController = blue; break;
+            case Colortype.Green: gameObject.GetComponent<Animator>().runtimeAnimatorController = green; break;
+            case Colortype.Pink: gameObject.GetComponent<Animator>().runtimeAnimatorController = pink; break;
+            case Colortype.Yellow: gameObject.GetComponent<Animator>().runtimeAnimatorController = yellow; break;
+            default: Debug.Log("Enemy is white?"); break;
+        }
+    }
+    ///<summary>
+    /// Method Attack causes object to run an attack which can damage Player player
+    ///</summary>
+    void Attack(Player player)
+    {
+        if (Vector2.Distance(this.transform.position, player.transform.position) <= 0.7f && attackTimer <= 0)
+        {
+            Debug.Log("zap hit");
+            player.hp -= 5;
+            attackTimer = 1.2f;
+        }
     }
 
     ///<summary>
