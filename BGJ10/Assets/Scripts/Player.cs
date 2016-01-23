@@ -8,15 +8,9 @@ public class Player : MonoBehaviour {
     private float maxSpeed = 10;
     public bool grounded;
     private bool jumping = false;
-    private bool canDoubleJump;
-
-	// Use this for initialization
-	void Start () {
+    public bool canDoubleJump;
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         this.GiveControl();
 	}
 
@@ -30,13 +24,13 @@ public class Player : MonoBehaviour {
 
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
-            curSpeed += 0.25f;
+            curSpeed += 0.5f;
         }
         else if (Input.GetAxisRaw("Horizontal") == -1)
         {
-            curSpeed -= 0.25f;
+            curSpeed -= 0.5f;
         }
-        else curSpeed = Mathf.Lerp(curSpeed, 0, 0.05f);
+        else curSpeed = Mathf.Lerp(curSpeed, 0, 0.1f);
 
         if (curSpeed <= maxSpeed * -1)
             curSpeed = maxSpeed * -1;
@@ -55,6 +49,7 @@ public class Player : MonoBehaviour {
         else if (Input.GetButtonDown("Jump") && !grounded && canDoubleJump == true)
         {
             canDoubleJump = false;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.x / 2);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 400));
         }
         
