@@ -5,13 +5,22 @@ public class Player : MonoBehaviour {
 
     int floorLayer = 1 << 8;
 
-    //Control Variables
+    //Player Control Variables
     private float curSpeed = 0;
     private float maxSpeed = 10;
     public bool grounded;
     private bool jumping = false;
     public bool canDoubleJump;
     Vector2 mousePos = Vector2.zero;
+    float startSize;
+
+    //Player Variables
+    public Weapon weapon;
+
+    void Start()
+    {
+        startSize = transform.localScale.x;
+    }
 
     void Update()
     {
@@ -66,10 +75,15 @@ public class Player : MonoBehaviour {
     ///</summary>
     void LookAtMouse()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+        mousePos = Camera.main.GetComponent<CameraFollow>().GetMousePos();
+
+        //if (mousePos.x < transform.position.x)
+        //    transform.localScale = new Vector2(-startSize, transform.localScale.y);
+        //else transform.localScale = new Vector2(startSize, transform.localScale.y);
 
         if (mousePos.x < transform.position.x)
-            transform.localScale = new Vector2(-1, transform.localScale.y);
-        else transform.localScale = new Vector2(1, transform.localScale.y);
+            transform.eulerAngles = new Vector3(transform.rotation.x, 180, transform.rotation.z);
+        else transform.eulerAngles = new Vector3(transform.rotation.x, 0, transform.rotation.z);
     }
+
 }

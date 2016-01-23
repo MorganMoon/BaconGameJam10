@@ -15,5 +15,13 @@ public class CameraFollow : MonoBehaviour {
 		transform.position = vLoc;
 	
 	}
+
+    ///<summary>
+    /// Method GetMousePos returns the position of the mouse as a Vector2
+    ///</summary>
+    public Vector2 GetMousePos()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+    }
 	
 }
