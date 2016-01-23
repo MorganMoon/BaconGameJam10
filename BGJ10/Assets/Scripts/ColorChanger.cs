@@ -53,7 +53,6 @@ public class ColorChanger : MonoBehaviour {
             case Colortype.Pink: light.color = Color.magenta; break;
             case Colortype.Yellow: light.color = Color.yellow; break;
             default: Debug.Log("ColorChanger is broken"); break;
-
         }
     }
 }
