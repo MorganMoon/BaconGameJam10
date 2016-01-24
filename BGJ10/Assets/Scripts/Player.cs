@@ -16,10 +16,6 @@ public class Player : MonoBehaviour {
     public Weapon weapon;
     public float hp = 100;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
         this.LookAtMouse();

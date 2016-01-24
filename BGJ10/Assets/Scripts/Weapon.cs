@@ -18,14 +18,21 @@ public class Weapon : MonoBehaviour {
     //Weapon Variables
     Colortype type;
     public GameObject shooter;
+    int layerMask = 1 << 9;
 
     //Weapon projectile
     public GameObject smokePuff;
     public GameObject grenade;
+    private LineRenderer laserBeam;
 
+    void Awake()
+    {
+        laserBeam = gameObject.GetComponent<LineRenderer>();
+    }
     void Start()
     {
         type = Colortype.White;
+        layerMask = ~layerMask;
     }
     void Update()
     {
@@ -75,6 +82,9 @@ public class Weapon : MonoBehaviour {
             {
                 case Colortype.Blue:
                     //laser gun
+                    RaycastHit2D end = Physics2D.Raycast(shooter.transform.position, transform.right, Mathf.Infinity, layerMask);
+                    laserBeam.SetPosition(0, shooter.transform.position);
+                    laserBeam.SetPosition(1, end.point);
                     Debug.Log("Shoot blue");
                     break;
                 case Colortype.Green:
@@ -100,6 +110,10 @@ public class Weapon : MonoBehaviour {
                     break;
                 default: Debug.Log("Gun is broken"); break;
             }
+        }
+        else
+        {
+
         }
         //Weapon timers
         grenadeTimer -= Time.deltaTime;
