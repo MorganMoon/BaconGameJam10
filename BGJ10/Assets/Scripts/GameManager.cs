@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     //Player Stuff
     public Player player;
-    public float score = 0;
+    public int wave = 0;
+    public bool waveRunning = false;
 
     //Map Stuff
     public GameObject Enemy;
     public GameObject[] ColorOrbSpawns;
     public GameObject[] EnemySpawns;
 
+    //UI stuff
+    public Text roundText;
+    public Slider hpSlider;
+
     void Start()
     {
         PlaceColorOrbs();
     }
 	void Update () {
-        UpdateScore();
+        if (player)
+        {
+            HandleWaves();
+        }
+        HandleUI();
 	}
 
     ///<summary>
-    /// Method UpdateScore adds to the score as time passes, as long as the player is alive
+    /// Method HandleUI handles all changing UI elements during playtime
     ///</summary>
-    void UpdateScore()
+    void HandleUI()
     {
-        if (player)
-        {
-            score += Time.deltaTime;
-
-            if ((int)score % 10 == 0)
-            {
-                SpawnEnemy();
-            }
-        }
+        roundText.text = "Wave: " + wave;
+        hpSlider.value = player.GetComponent<Player>().hp / 100;
     }
     ///<summary>
     /// Method PlaceColorOrbs places one orb of each color around the map
@@ -60,12 +63,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    void HandleWaves()
+    {
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            waveRunning = false;
+            wave += 1;
+            SpawnEnemy(wave);
+            waveRunning = true;
+        }
+    }
+
     ///<summary>
     /// Method SpawnEnemy will spawn an enemy at a random spawnpoint
     ///</summary>
-    void SpawnEnemy()
+    void SpawnEnemy(int amount)
     {
-        GameObject enemy = Instantiate(Enemy, EnemySpawns[Random.Range(0, EnemySpawns.Length)].transform.position, Quaternion.identity) as GameObject;
-        enemy.GetComponent<Enemy>().type = (Colortype)Random.Range(1, 5);
+        for (int i = 0; i < amount; i++)
+        {
+            if (!waveRunning)
+            {
+                GameObject enemy = Instantiate(Enemy, EnemySpawns[Random.Range(0, EnemySpawns.Length)].transform.position, Quaternion.identity) as GameObject;
+                enemy.GetComponent<Enemy>().type = (Colortype)Random.Range(1, 5);
+            }
+        }
     }
 }

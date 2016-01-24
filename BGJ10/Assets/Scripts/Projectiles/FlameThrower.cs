@@ -6,7 +6,8 @@ public class FlameThrower : MonoBehaviour {
     {
         if (hit.gameObject.tag == "Enemy" && hit.gameObject.GetComponent<Enemy>().type == Colortype.Yellow)
         {
-            hit.gameObject.GetComponent<Enemy>().hp -= 0.1f;
+            Debug.Log("flamne burning jelly");
+            hit.gameObject.GetComponent<Enemy>().hp -= 1f;
         }
     }
 }

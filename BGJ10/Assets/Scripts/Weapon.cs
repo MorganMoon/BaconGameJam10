@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour {
     //Weapon Variables
     Colortype type;
     public GameObject shooter;
-    int layerMask = 1 << 9;
+    int laserLayerMask = 1 << 9;
 
     //Weapon projectile
     public GameObject smokePuff;
@@ -28,6 +28,9 @@ public class Weapon : MonoBehaviour {
     public GameObject bullet;
     public GameObject flames;
 
+    //Weapon position stuff
+    public Transform player;
+
     void Awake()
     {
         laserBeam = gameObject.GetComponent<LineRenderer>();
@@ -35,15 +38,20 @@ public class Weapon : MonoBehaviour {
     void Start()
     {
         type = Colortype.White;
-        layerMask = ~layerMask;
+        laserLayerMask = ~laserLayerMask;
     }
     void Update()
     {
         ReadyWeapon();
+        PositionFollow(player);
     }
     void FixedUpdate()
     {
         this.Aim();
+    }
+    public void PositionFollow(Transform followed)
+    {
+        this.transform.position = followed.position;
     }
     ///<summary>
     /// Method SetType sets the weaponType type
@@ -72,7 +80,7 @@ public class Weapon : MonoBehaviour {
     }
 
     //weapon timers
-    float grenadeTimer = 1.5f;
+    float grenadeTimer = 1f;
     float laserTimer = 1.5f;
     float bulletTimer = 0.5f;
     float flameTimer = 1f;
@@ -90,10 +98,10 @@ public class Weapon : MonoBehaviour {
                     //laser gun
                     if (laserTimer > 0)
                     {
-                        RaycastHit2D end = Physics2D.Raycast(shooter.transform.position, transform.right, 1000, layerMask);
+                        RaycastHit2D end = Physics2D.Raycast(shooter.transform.position, transform.right, 1000, laserLayerMask);
                         laserBeam.enabled = true;
                         laserBeam.SetPosition(0, shooter.transform.position);
-                        if (Physics2D.Raycast(shooter.transform.position, transform.right, 1000, layerMask))
+                        if (Physics2D.Raycast(shooter.transform.position, transform.right, 1000, laserLayerMask))
                         {
                             laserBeam.SetPosition(1, end.point);
                             Instantiate(laserHitEffect, end.point, transform.rotation);
@@ -115,7 +123,7 @@ public class Weapon : MonoBehaviour {
                     if (grenadeTimer <= 0)
                     {
                         GameObject projectile2 = Instantiate(grenade, shooter.transform.position, transform.rotation) as GameObject;
-                        projectile2.GetComponent<Rigidbody2D>().AddForce(transform.right * 300);
+                        projectile2.GetComponent<Rigidbody2D>().AddForce(transform.right * 200);
                         grenadeTimer = 1.5f;
                     }
                     break;
@@ -134,7 +142,7 @@ public class Weapon : MonoBehaviour {
                     {
                         GameObject projectile4 = Instantiate(flames, shooter.transform.position, transform.rotation) as GameObject;
                         projectile4.transform.parent = transform;
-                        projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
+                        //projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
                         flameTimer = 1f;
                     }
                     break;

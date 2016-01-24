@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
         {
             Die();
         }
+        HandleAnimation();
     }
 	
 	void FixedUpdate () {
@@ -53,12 +54,16 @@ public class Player : MonoBehaviour {
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
             curSpeed += 0.5f;
+            
         }
         else if (Input.GetAxisRaw("Horizontal") == -1)
         {
             curSpeed -= 0.5f;
         }
-        else curSpeed = Mathf.Lerp(curSpeed, 0, 0.1f);
+        else
+        {
+            curSpeed = Mathf.Lerp(curSpeed, 0, 0.1f); 
+        }
 
         if (curSpeed <= maxSpeed * -1)
             curSpeed = maxSpeed * -1;
@@ -93,10 +98,40 @@ public class Player : MonoBehaviour {
         //if (mousePos.x < transform.position.x)
         //    transform.localScale = new Vector2(-startSize, transform.localScale.y);
         //else transform.localScale = new Vector2(startSize, transform.localScale.y);
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            if (mousePos.x < transform.position.x)
+                transform.eulerAngles = new Vector3(transform.rotation.x, 180, transform.rotation.z);
+            else transform.eulerAngles = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+        }
 
-        if (mousePos.x < transform.position.x)
+        if (Input.GetAxisRaw("Horizontal") == 1)
+        {
+            transform.eulerAngles = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+        }
+        else if (Input.GetAxisRaw("Horizontal") == -1)
+        {
             transform.eulerAngles = new Vector3(transform.rotation.x, 180, transform.rotation.z);
-        else transform.eulerAngles = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+        }
+    }
+
+    ///<summary>
+    /// Method HandleAnimation will play the appropriate animation based on input or state of the Player
+    ///</summary>
+    void HandleAnimation()
+    {
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            if(grounded)
+                GetComponent<Animator>().Play("Doodlebob_idle");
+            else GetComponent<Animator>().Play("Doodlebob_fall");
+        }
+        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+        {
+            if (grounded)
+                GetComponent<Animator>().Play("Doodlebob_walk");
+            else GetComponent<Animator>().Play("Doodlebob_fall");
+        }
     }
 
 }

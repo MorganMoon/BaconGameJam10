@@ -17,7 +17,7 @@ public class Grenade : MonoBehaviour {
     ///</summary>
     void PullPin()
     {
-        if (countdown >= 1.5f)
+        if (countdown >= 1f)
         {
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies)

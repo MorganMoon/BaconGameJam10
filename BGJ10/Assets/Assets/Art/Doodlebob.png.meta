@@ -1,0 +1,188 @@
+fileFormatVersion: 2
+guid: 11e4e8e5c2b02e645bc01f93fd675013
+timeCreated: 1453654870
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Doodlebob_0
+    21300002: Doodlebob_1
+    21300004: Doodlebob_2
+    21300006: Doodlebob_3
+    21300008: Doodlebob_4
+    21300010: Doodlebob_5
+    21300012: Doodlebob_6
+    21300014: Doodlebob_7
+    21300016: Doodlebob_8
+    21300018: Doodlebob_9
+    21300020: Doodlebob_10
+    21300022: Doodlebob_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Doodlebob_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1036
+        width: 375
+        height: 491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_1
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1035
+        width: 277
+        height: 493
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_2
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 1035
+        width: 307
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_3
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 1036
+        width: 359
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_4
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 529
+        width: 305
+        height: 486
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_5
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 524
+        width: 310
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_6
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 523
+        width: 256
+        height: 466
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_7
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 522
+        width: 366
+        height: 466
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_8
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 11
+        width: 307
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_9
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 12
+        width: 346
+        height: 493
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_10
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 17
+        width: 354
+        height: 486
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doodlebob_11
+      rect:
+        serializedVersion: 2
+        x: 1594
+        y: 11
+        width: 375
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
