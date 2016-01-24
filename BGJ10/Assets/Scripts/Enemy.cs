@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         pathfinding.heuristic = (Heuristics)Random.Range(0, 3);
         SetEnemyColor(type);
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 	void Update () {
         FindPath();

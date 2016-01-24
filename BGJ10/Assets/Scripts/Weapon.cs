@@ -25,6 +25,8 @@ public class Weapon : MonoBehaviour {
     public GameObject grenade;
     private LineRenderer laserBeam;
     public GameObject laserHitEffect;
+    public GameObject bullet;
+    public GameObject flames;
 
     void Awake()
     {
@@ -72,6 +74,8 @@ public class Weapon : MonoBehaviour {
     //weapon timers
     float grenadeTimer = 1.5f;
     float laserTimer = 1.5f;
+    float bulletTimer = 0.5f;
+    float flameTimer = 1f;
 
     ///<summary>
     /// Method ReadyWeapon checks for input and fires according to the color of the weapon
@@ -117,15 +121,28 @@ public class Weapon : MonoBehaviour {
                     break;
                 case Colortype.Pink:
                     //pew pew
+                    if (bulletTimer <= 0)
+                    {
+                        GameObject projectile3 = Instantiate(bullet, shooter.transform.position, transform.rotation) as GameObject;
+                        projectile3.GetComponent<Rigidbody2D>().AddForce(transform.right * 850);
+                        bulletTimer = 0.5f;
+                    }
                     Debug.Log("Shoot pink");
                     break;
                 case Colortype.Yellow:
                     //flame thrower
+                    if (flameTimer <= 0)
+                    {
+                        GameObject projectile4 = Instantiate(flames, shooter.transform.position, transform.rotation) as GameObject;
+                        projectile4.transform.parent = transform;
+                        projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
+                        flameTimer = 1f;
+                    }
                     Debug.Log("Shoot yellow");
                     break;
                 case Colortype.White:
-                    GameObject projectile5 = Instantiate(smokePuff, shooter.transform.position, transform.rotation) as GameObject;
-                    projectile5.transform.parent = this.transform;
+                    GameObject projectile5 = Instantiate(smokePuff, shooter.transform.position , transform.rotation) as GameObject;
+                    projectile5.transform.parent = this.transform; 
                     break;
                 default: Debug.Log("Gun is broken"); break;
             }
@@ -136,6 +153,8 @@ public class Weapon : MonoBehaviour {
         }
         //Weapon timers
         grenadeTimer -= Time.deltaTime;
+        bulletTimer -= Time.deltaTime;
+        flameTimer -= Time.deltaTime;
         Debug.Log(laserTimer);
         if (!Input.GetButton("Fire1")) laserTimer += Time.deltaTime;
         if (laserTimer > 1.5f) laserTimer = 1.5f;
