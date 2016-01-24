@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour {
     public GameObject smokePuff;
     public GameObject grenade;
     private LineRenderer laserBeam;
+    public GameObject laserHitEffect;
 
     void Awake()
     {
@@ -70,9 +71,10 @@ public class Weapon : MonoBehaviour {
 
     //weapon timers
     float grenadeTimer = 1.5f;
+    float laserTimer = 1.5f;
 
     ///<summary>
-    /// Method ReadyWeapon checks for input and fired according to the color of the weapon
+    /// Method ReadyWeapon checks for input and fires according to the color of the weapon
     ///</summary>
     void ReadyWeapon()
     {
@@ -82,10 +84,27 @@ public class Weapon : MonoBehaviour {
             {
                 case Colortype.Blue:
                     //laser gun
-                    RaycastHit2D end = Physics2D.Raycast(shooter.transform.position, transform.right, Mathf.Infinity, layerMask);
-                    laserBeam.SetPosition(0, shooter.transform.position);
-                    laserBeam.SetPosition(1, end.point);
-                    Debug.Log("Shoot blue");
+                    if (laserTimer > 0)
+                    {
+                        RaycastHit2D end = Physics2D.Raycast(shooter.transform.position, transform.right, 1000, layerMask);
+                        laserBeam.enabled = true;
+                        laserBeam.SetPosition(0, shooter.transform.position);
+                        if (Physics2D.Raycast(shooter.transform.position, transform.right, 1000, layerMask))
+                        {
+                            laserBeam.SetPosition(1, end.point);
+                            Instantiate(laserHitEffect, end.point, transform.rotation);
+                        }
+                        else laserBeam.SetPosition(1, Camera.main.GetComponent<CameraFollow>().GetMousePos());
+                        if (end.collider != null && end.collider.gameObject.tag == "Enemy" && end.collider.gameObject.GetComponent<Enemy>().type == Colortype.Blue)
+                        {
+                            end.collider.gameObject.GetComponent<Enemy>().hp -= 1;
+                        }
+                    }
+                    else
+                    {
+                        laserBeam.enabled = false;
+                    }
+                    laserTimer -= Time.deltaTime;
                     break;
                 case Colortype.Green:
                     //grenade launcher
@@ -113,9 +132,12 @@ public class Weapon : MonoBehaviour {
         }
         else
         {
-
+            laserBeam.enabled = false;
         }
         //Weapon timers
         grenadeTimer -= Time.deltaTime;
+        Debug.Log(laserTimer);
+        if (!Input.GetButton("Fire1")) laserTimer += Time.deltaTime;
+        if (laserTimer > 1.5f) laserTimer = 1.5f;
     }
 }
