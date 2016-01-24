@@ -127,7 +127,6 @@ public class Weapon : MonoBehaviour {
                         projectile3.GetComponent<Rigidbody2D>().AddForce(transform.right * 850);
                         bulletTimer = 0.5f;
                     }
-                    Debug.Log("Shoot pink");
                     break;
                 case Colortype.Yellow:
                     //flame thrower
@@ -138,7 +137,6 @@ public class Weapon : MonoBehaviour {
                         projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
                         flameTimer = 1f;
                     }
-                    Debug.Log("Shoot yellow");
                     break;
                 case Colortype.White:
                     GameObject projectile5 = Instantiate(smokePuff, shooter.transform.position , transform.rotation) as GameObject;
@@ -155,7 +153,6 @@ public class Weapon : MonoBehaviour {
         grenadeTimer -= Time.deltaTime;
         bulletTimer -= Time.deltaTime;
         flameTimer -= Time.deltaTime;
-        Debug.Log(laserTimer);
         if (!Input.GetButton("Fire1")) laserTimer += Time.deltaTime;
         if (laserTimer > 1.5f) laserTimer = 1.5f;
     }

@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour {
         if (Vector2.Distance(this.transform.position, player.transform.position) <= 0.7f && attackTimer <= 0)
         {
             Debug.Log("zap hit");
-            player.hp -= 5;
+            player.hp -= 2;
             attackTimer = 1.2f;
         }
     }

@@ -14,7 +14,7 @@ public class ColorChanger : MonoBehaviour {
 
     void Start()
     {
-        SetLightColor(glower, color);
+        SetLightColor(color);
     }
 	
 	// Update is called once per frame
@@ -44,14 +44,14 @@ public class ColorChanger : MonoBehaviour {
     ///<summary>
     /// Method SetLightColor sets the color property of Light light to the corisponding color of Colortype type
     ///</summary>
-    void SetLightColor(Light light, Colortype type)
+    public void SetLightColor(Colortype type)
     {
         switch (type)
         {
-            case Colortype.Blue: light.color = Color.blue; break;
-            case Colortype.Green: light.color = Color.green; break;
-            case Colortype.Pink: light.color = Color.magenta; break;
-            case Colortype.Yellow: light.color = Color.yellow; break;
+            case Colortype.Blue: glower.color = Color.blue; break;
+            case Colortype.Green: glower.color = Color.green; break;
+            case Colortype.Pink: glower.color = Color.magenta; break;
+            case Colortype.Yellow: glower.color = Color.yellow; break;
             default: Debug.Log("ColorChanger is broken"); break;
         }
     }
