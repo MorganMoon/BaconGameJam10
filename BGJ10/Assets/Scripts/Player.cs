@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -15,6 +16,14 @@ public class Player : MonoBehaviour {
     //Player Variables
     public Weapon weapon;
     public float hp = 100;
+
+    //UI
+    public Transform deadScreen;
+
+    void Start()
+    {
+        deadScreen.gameObject.SetActive(false);
+    }
 
     void Update()
     {
@@ -41,6 +50,7 @@ public class Player : MonoBehaviour {
         {
             Destroy(enemy);
         }
+        deadScreen.gameObject.SetActive(true);
     }
 
     ///<summary>
@@ -71,21 +81,28 @@ public class Player : MonoBehaviour {
             curSpeed = maxSpeed;
 
         //Jumpy jump junk
-        Debug.DrawLine(new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x, transform.position.y - 0.7f), Color.red);
-        grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.7f, floorLayer);
+        Debug.DrawLine(new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x, transform.position.y - 0.5f), Color.red);
+        grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.5f, floorLayer);
 
-        if (grounded && Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
-            canDoubleJump = true;
-            //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
-            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 6f);
-        }
-        else if (!grounded && canDoubleJump == true && Input.GetButtonDown("Jump"))
-        {
-            canDoubleJump = false;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y / 2);
-            //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
-            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 8f);
+            if (grounded)
+            {
+                canDoubleJump = true;
+                //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
+                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 6f);
+                
+            }
+            else if(!grounded)
+            {
+                if (canDoubleJump)
+                {
+                    canDoubleJump = false;
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y / 2);
+                    //GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 350));
+                    GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + new Vector2(0, 7f);
+                }
+            }
         }
     }
     ///<summary>

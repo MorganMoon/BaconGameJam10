@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.Animations;
+
 
 public class Enemy : MonoBehaviour {
     
@@ -20,11 +20,13 @@ public class Enemy : MonoBehaviour {
     public Colortype type;
     public float hp = 10;
 
+    public GameObject jellyZap;
+
     //Colors
-    public AnimatorController blue;
-    public AnimatorController green;
-    public AnimatorController pink;
-    public AnimatorController yellow;
+    public RuntimeAnimatorController blue;
+    public RuntimeAnimatorController green;
+    public RuntimeAnimatorController pink;
+    public RuntimeAnimatorController yellow;
 
     void Awake()
     {
@@ -68,7 +70,7 @@ public class Enemy : MonoBehaviour {
         
         switch (type)
         {
-            case Colortype.Blue: gameObject.GetComponent<Animator>().runtimeAnimatorController = blue; break;
+            case Colortype.Blue: gameObject.GetComponent<Animator>().runtimeAnimatorController = blue ; break;
             case Colortype.Green: gameObject.GetComponent<Animator>().runtimeAnimatorController = green; break;
             case Colortype.Pink: gameObject.GetComponent<Animator>().runtimeAnimatorController = pink; break;
             case Colortype.Yellow: gameObject.GetComponent<Animator>().runtimeAnimatorController = yellow; break;
@@ -82,7 +84,7 @@ public class Enemy : MonoBehaviour {
     {
         if (Vector2.Distance(this.transform.position, player.transform.position) <= 0.7f && attackTimer <= 0)
         {
-            Debug.Log("zap hit");
+            Instantiate(jellyZap, transform.position, transform.rotation);
             player.hp -= 2;
             attackTimer = 1.2f;
         }

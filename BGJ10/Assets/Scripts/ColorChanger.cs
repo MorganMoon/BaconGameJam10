@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ColorChanger : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class ColorChanger : MonoBehaviour {
     Player player;
     public Light glower;
 
+    //UI
+    public Text useText;
+
     void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
@@ -15,6 +19,7 @@ public class ColorChanger : MonoBehaviour {
     void Start()
     {
         SetLightColor(color);
+        useText.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -24,13 +29,20 @@ public class ColorChanger : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
+        {
+            useText.enabled = true;
             playerInside = true;
+        }
+
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
+        {
+            useText.enabled = false;
             playerInside = false;
+        }
     }
     ///<summary>
     /// Method UseColorChanger sets Player player's Colortype to Colortype color

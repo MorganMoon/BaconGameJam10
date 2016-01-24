@@ -31,6 +31,9 @@ public class Weapon : MonoBehaviour {
     //Weapon position stuff
     public Transform player;
 
+    //Colors
+    public Sprite white, pink, blue, green, yellow;
+
     void Awake()
     {
         laserBeam = gameObject.GetComponent<LineRenderer>();
@@ -44,14 +47,41 @@ public class Weapon : MonoBehaviour {
     {
         ReadyWeapon();
         PositionFollow(player);
+        this.HandleTexture();
     }
     void FixedUpdate()
     {
         this.Aim();
     }
+    ///<summary>
+    /// Method HandleTexture sets the texture of the Weapon gameobject depending on its type
+    ///</summary>
+    void HandleTexture()
+    {
+        switch (type)
+        {
+            case Colortype.Blue:
+                GetComponent<SpriteRenderer>().sprite = blue;
+                break;
+            case Colortype.Green:
+                GetComponent<SpriteRenderer>().sprite = green;
+                break;
+            case Colortype.Pink:
+                GetComponent<SpriteRenderer>().sprite = pink;
+                break;
+            case Colortype.Yellow:
+                GetComponent<SpriteRenderer>().sprite = yellow;
+                break;
+            case Colortype.White:
+                GetComponent<SpriteRenderer>().sprite = white;
+                break;
+            default: Debug.Log("Gun is broken"); break;
+        }
+    }
     public void PositionFollow(Transform followed)
     {
-        this.transform.position = followed.position;
+        if(player)
+            this.transform.position = followed.position;
     }
     ///<summary>
     /// Method SetType sets the weaponType type
@@ -141,8 +171,8 @@ public class Weapon : MonoBehaviour {
                     if (flameTimer <= 0)
                     {
                         GameObject projectile4 = Instantiate(flames, shooter.transform.position, transform.rotation) as GameObject;
-                        projectile4.transform.parent = transform;
-                        //projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
+                        projectile4.transform.parent = player;
+                        projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
                         flameTimer = 1f;
                     }
                     break;
