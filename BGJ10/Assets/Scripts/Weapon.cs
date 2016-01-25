@@ -27,6 +27,7 @@ public class Weapon : MonoBehaviour {
     public GameObject laserHitEffect;
     public GameObject bullet;
     public GameObject flames;
+    public GameObject flamesEffect;
 
     //Weapon position stuff
     public Transform player;
@@ -171,8 +172,11 @@ public class Weapon : MonoBehaviour {
                     if (flameTimer <= 0)
                     {
                         GameObject projectile4 = Instantiate(flames, shooter.transform.position, transform.rotation) as GameObject;
+                        GameObject projectile4Effect = Instantiate(flamesEffect, shooter.transform.position, transform.rotation) as GameObject;
                         projectile4.transform.parent = player;
+                        projectile4Effect.transform.parent = gameObject.transform;
                         projectile4.transform.localEulerAngles = new Vector3(projectile4.transform.localEulerAngles.x, projectile4.transform.localEulerAngles.y, projectile4.transform.localEulerAngles.z -90);
+                        projectile4Effect.transform.localEulerAngles = new Vector3(projectile4Effect.transform.localEulerAngles.x, projectile4Effect.transform.localEulerAngles.y, projectile4Effect.transform.localEulerAngles.z - 90);
                         flameTimer = 1f;
                     }
                     break;
